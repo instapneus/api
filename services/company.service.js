@@ -53,7 +53,9 @@ async function getCompanyLocations(companyId) {
   const { data, error } = await supabase
     .from("company_locations")
     .select("*")
-    .eq("company_id", companyId);
+    .eq("is_active", true)
+    .eq("company_id", companyId)
+    .order("name", { ascending: true });
 
   if (error) {
     throw new AppError("Failed to fetch company locations", {
